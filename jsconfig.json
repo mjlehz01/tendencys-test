@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/tickets/*": ["/components/tickets/*"],
+      "@/ui/*": ["/components/ui/*"]
+    }
+  }
+}
