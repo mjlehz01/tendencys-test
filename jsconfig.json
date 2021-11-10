@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "@/tickets/*": ["/components/tickets/*"],
-      "@/ui/*": ["/components/ui/*"]
+      "@/ui/*": ["/components/ui/*"],
+      "@/customBootstrap": ["/components/ui/CustomBootstrap.jsx"]
     }
   }
 }
