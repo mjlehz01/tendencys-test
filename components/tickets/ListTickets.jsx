@@ -7,6 +7,7 @@ import { UiListGroup, UiPlaceHolder } from "@/customBootstrap";
 
 const ListTickets = ({ data }) => {
 	const [filterList, setFilterList] = useState([]);
+	console.log(data);
 
 	const handleQuery = (r, q) => {
 		let timeout = null;
@@ -16,11 +17,14 @@ const ListTickets = ({ data }) => {
 			data.forEach((e, i) => {
 				if (e.ticket_status_name.toLowerCase().indexOf(q) != -1) {
 					resultQuery.push(i);
-					console.log(e);
 				}
 			});
 
-			resultQuery.length;
+			resultQuery.length
+				? (timeout = setTimeout(() => {
+						setFilterList(resultQuery);
+				  }, 150))
+				: setFilterList([]);
 		}
 
 		if (r === "id") {
@@ -32,7 +36,7 @@ const ListTickets = ({ data }) => {
 					resultQuery.push(i);
 				}
 			});
-			resultQuery
+			resultQuery.length
 				? (timeout = setTimeout(() => {
 						setFilterList(resultQuery);
 				  }, 150))
@@ -64,6 +68,7 @@ const ListTickets = ({ data }) => {
 							<ItemTicket
 								key={`${ticket.id}`}
 								itemData={ticket}
+								iterador={ticket.id}
 								hidden={filterList.length && !filterList.includes(index)}
 							/>
 						))}

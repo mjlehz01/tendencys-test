@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 //componets
 import { UiListGroupItem, UiBadge } from "@/customBootstrap";
 import { TextP } from "@/ui/Text";
+//api
+import { getTicketApi } from "/api/tickets";
 
 const TICKET_TYPE_ID = {
 	8: "Delay in delivery",
@@ -10,7 +12,7 @@ const TICKET_TYPE_ID = {
 	12: "Shipment without movement",
 };
 
-const ItemTicket = ({ itemData, hidden }) => {
+const ItemTicket = ({ itemData, iterador, hidden }) => {
 	const {
 		id,
 		created_at,
@@ -21,9 +23,19 @@ const ItemTicket = ({ itemData, hidden }) => {
 		ticket_status_name,
 	} = itemData;
 
+	const getId = async (id) => {
+		const response = await getTicketApi(id);
+		alert(response[0].id);
+	};
+
 	const dataConvert = (obj) => {
-		const dataParse = JSON.parse(obj);
-		const traN = dataParse.tracking_number ?? null;
+		let dataParse = "";
+		try {
+			dataParse = JSON.parse(obj);
+		} catch (e) {}
+		if (!dataParse) return dataParse;
+
+		const traN = dataParse?.tracking_number;
 		if (traN) {
 			return `Traking No: ${traN}`;
 		}
@@ -38,7 +50,13 @@ const ItemTicket = ({ itemData, hidden }) => {
 	};
 
 	return (
-		<UiListGroupItem className={hidden ? "d-none" : "sd"}>
+		<UiListGroupItem
+			action
+			className={hidden ? "d-none" : "sd"}
+			onClick={() => {
+				getId(id);
+			}}
+		>
 			<div className="d-flex flex-wrap align-items-end">
 				<TextP fs="1.5rem" fw="700" className="me-3">
 					#{id}

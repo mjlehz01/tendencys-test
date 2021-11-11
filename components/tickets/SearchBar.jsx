@@ -15,7 +15,7 @@ const SearchBar = ({ params, onResultQuery, clear }) => {
 
 	const handleChange = (e) => {
 		const q = e.target.value;
-		if (q.length > 2) {
+		if (q.length >= 2) {
 			onResultQuery(typeQuery[0], q);
 		} else {
 			clear();
