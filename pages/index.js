@@ -297,13 +297,13 @@ export default function Home() {
   const [ticketsList, setTicketsList] = useState(LIST_TEST);
 
   return (
-    <UiContainer>
-      <Row>
+    <UiContainer fluid>
+      <Row className="h-100">
         <Col md={4}>
           <TitleH3>Tickets</TitleH3>
           <TitleH6>Manange the diffrerent ticket options we have</TitleH6>
         </Col>
-        <Col md={8}>
+        <Col md={8} className="h-100">
           <ListTickets data={ticketsList} />
         </Col>
       </Row>

@@ -11,28 +11,40 @@ import Box from "@/ui/Box";
 
 const SearchBar = ({ params, onResultQuery }) => {
 	const [typeQuery, setTypeQuery] = useState(params);
+	const [changeText, setChangeText] = useState(false);
 
 	const handleChange = (e) => {
 		const q = e.target.value;
-		console.log(q);
+		onResultQuery(typeQuery[0], q);
 	};
 	const handleSelect = (i) => {
-		console.log(i);
+		const typeQueryTemp = [...typeQuery];
+		typeQueryTemp.splice(i, 1);
+		typeQueryTemp.unshift(typeQuery[i]);
+
+		setTypeQuery(typeQueryTemp);
+	};
+
+	const handleText = () => {
+		setChangeText(true);
+		setTimeout(() => setChangeText(false), 1000);
 	};
 
 	return (
 		<div className="d-flex w-100 g-0">
-			<Box width="5%" className="me-2" />
-			<UiDropDownContainter mw="12%" >
+			<Box width="7.5%" className="me-2" />
+			<UiDropDownContainter mw="12%" onSelect={handleText}>
 				<UiDropDownToggle
 					id="change-search"
-					className="text-capitalize px-3"
+					className={`text-capitalize px-3 ${
+						changeText && "animation-fade-in"
+					}`}
 					variant
 				>
-					{params[0]}
+					{typeQuery[0]}
 				</UiDropDownToggle>
 				<UiDropDownMenu>
-					{params.map((item, index) => (
+					{typeQuery.map((item, index) => (
 						<UiDropDownItem
 							onClick={() => handleSelect(index)}
 							key={`select-q${index}`}
@@ -51,7 +63,7 @@ const SearchBar = ({ params, onResultQuery }) => {
 				aria-label="Search"
 				onChange={handleChange}
 			/>
-			<Box width="5%" className="me-0 ms-auto" />
+			<Box width="15%" className="me-0 ms-auto" />
 		</div>
 	);
 };
