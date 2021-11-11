@@ -10,7 +10,7 @@ const TICKET_TYPE_ID = {
 	12: "Shipment without movement",
 };
 
-const ItemTicket = ({ itemData }) => {
+const ItemTicket = ({ itemData, hidden }) => {
 	const {
 		id,
 		created_at,
@@ -35,11 +35,10 @@ const ItemTicket = ({ itemData }) => {
 					: "Credit or Debit Card"
 			}`;
 		}
-		console.log(dataParse);
 	};
 
 	return (
-		<UiListGroupItem>
+		<UiListGroupItem className={hidden ? "d-none" : "sd"}>
 			<div className="d-flex flex-wrap align-items-end">
 				<TextP fs="1.5rem" fw="700" className="me-3">
 					#{id}
@@ -57,7 +56,11 @@ const ItemTicket = ({ itemData }) => {
 				{comments ? comments : <br />}
 			</TextP>
 			<TextP>{dataConvert(data)}</TextP>
-			<UiBadge bg="none" className="mt-2 text-capitalize fw-bold" bgCustom={ticket_status_color}>
+			<UiBadge
+				bg="none"
+				className="mt-2 text-capitalize fw-bold"
+				bgcustom={ticket_status_color}
+			>
 				{ticket_status_name}
 			</UiBadge>
 		</UiListGroupItem>

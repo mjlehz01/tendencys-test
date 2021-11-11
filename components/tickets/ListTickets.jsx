@@ -6,16 +6,47 @@ import ItemTicket from "@/tickets/ItemTicket";
 import { UiListGroup, UiPlaceHolder } from "@/customBootstrap";
 
 const ListTickets = ({ data }) => {
-	const [filterList, setFilterList] = useState(-0);
+	const [filterList, setFilterList] = useState([]);
 
-	console.log(data);
 	const handleQuery = (r, q) => {
-		console.log(r, q);
+		let timeout = null;
+		if (r === "status") {
+			clearTimeout(timeout);
+			const resultQuery = [];
+			data.forEach((e, i) => {
+				if (e.ticket_status_name.toLowerCase().indexOf(q) != -1) {
+					resultQuery.push(i);
+					console.log(e);
+				}
+			});
+
+			resultQuery.length;
+		}
+
+		if (r === "id") {
+			clearTimeout(timeout);
+			const resultQuery = [];
+			data.forEach((e, i) => {
+				let id = `${e.id}`;
+				if (id.indexOf(q) != -1) {
+					resultQuery.push(i);
+				}
+			});
+			resultQuery
+				? (timeout = setTimeout(() => {
+						setFilterList(resultQuery);
+				  }, 150))
+				: setFilterList([]);
+		}
 	};
 
 	return (
 		<>
-			<SearchBar params={["status", "id"]} onResultQuery={handleQuery} />
+			<SearchBar
+				params={["status", "id"]}
+				onResultQuery={handleQuery}
+				clear={() => setFilterList([])}
+			/>
 			<UiListGroup overflow={data.length}>
 				{!data.length ? (
 					<>
@@ -30,7 +61,11 @@ const ListTickets = ({ data }) => {
 				) : (
 					<>
 						{data.map((ticket, index) => (
-							<ItemTicket key={`${ticket.id}`} itemData={ticket} />
+							<ItemTicket
+								key={`${ticket.id}`}
+								itemData={ticket}
+								hidden={filterList.length && !filterList.includes(index)}
+							/>
 						))}
 					</>
 				)}

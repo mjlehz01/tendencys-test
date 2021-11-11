@@ -1,6 +1,9 @@
 .animation-fade-in {
 	animation: fade-in 0.7s ease;
 }
+.animation-fade-out {
+	animation: fade-in 0.7s reverse;
+}
 
 @keyframes fade-in {
 	0% {

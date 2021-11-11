@@ -38,8 +38,8 @@ export const UiDropDownItem = styled(Dropdown.Item)`
 
 export const UiListGroup = styled(ListGroup)`
 	overflow-y: ${(props) => (props.overflow ? "scroll" : null)};
+	justify-content: ${(props) => (props.overflow ? null : "space-between")};
 	height: calc(85vh - 2.375rem);
-	justify-content: space-between;
 	padding-top: 0.625rem;
 	scroll-behavior: smooth;
 `;
@@ -57,5 +57,5 @@ export const UiListGroupItem = styled(ListGroup.Item)`
 `;
 
 export const UiBadge = styled(Badge)`
-	background-color: ${(props) => props.bgCustom};
+	background-color: ${(props) => props.bgcustom};
 `;

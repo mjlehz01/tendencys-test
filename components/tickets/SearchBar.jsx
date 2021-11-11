@@ -9,13 +9,17 @@ import {
 
 import Box from "@/ui/Box";
 
-const SearchBar = ({ params, onResultQuery }) => {
+const SearchBar = ({ params, onResultQuery, clear }) => {
 	const [typeQuery, setTypeQuery] = useState(params);
 	const [changeText, setChangeText] = useState(false);
 
 	const handleChange = (e) => {
 		const q = e.target.value;
-		onResultQuery(typeQuery[0], q);
+		if (q.length > 2) {
+			onResultQuery(typeQuery[0], q);
+		} else {
+			clear();
+		}
 	};
 	const handleSelect = (i) => {
 		const typeQueryTemp = [...typeQuery];
