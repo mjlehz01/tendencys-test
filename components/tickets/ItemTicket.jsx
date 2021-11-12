@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { UiListGroupItem, UiBadge } from "@/customBootstrap";
 import { TextP } from "@/ui/Text";
 //api
-import { getTicketApi } from "/api/tickets";
 
 const TICKET_TYPE_ID = {
 	8: "Delay in delivery",
@@ -12,7 +11,7 @@ const TICKET_TYPE_ID = {
 	12: "Shipment without movement",
 };
 
-const ItemTicket = ({ itemData, iterador, hidden }) => {
+const ItemTicket = ({ itemData, iterador, hidden, getItem }) => {
 	const {
 		id,
 		created_at,
@@ -22,11 +21,6 @@ const ItemTicket = ({ itemData, iterador, hidden }) => {
 		ticket_status_color,
 		ticket_status_name,
 	} = itemData;
-
-	const getId = async (id) => {
-		const response = await getTicketApi(id);
-		alert(response[0].id);
-	};
 
 	const dataConvert = (obj) => {
 		let dataParse = "";
@@ -53,9 +47,7 @@ const ItemTicket = ({ itemData, iterador, hidden }) => {
 		<UiListGroupItem
 			action
 			className={hidden ? "d-none" : "sd"}
-			onClick={() => {
-				getId(id);
-			}}
+			onClick={() => getItem(id)}
 		>
 			<div className="d-flex flex-wrap align-items-end">
 				<TextP fs="1.5rem" fw="700" className="me-3">
@@ -68,7 +60,7 @@ const ItemTicket = ({ itemData, iterador, hidden }) => {
 					&#40; {created_at} &#41;
 				</TextP>
 			</div>
-			<TextP fw="0.875rem" fw="500" className="w-100">
+			<TextP fs="1rem" fw="500" className="w-100">
 				comments:
 				<br />
 				{comments ? comments : <br />}

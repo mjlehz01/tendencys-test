@@ -1,13 +1,12 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 //componets
 import SearchBar from "@/tickets/SearchBar";
 import ItemTicket from "@/tickets/ItemTicket";
 import { UiListGroup, UiPlaceHolder } from "@/customBootstrap";
 
-const ListTickets = ({ data }) => {
+const ListTickets = ({ data, onShowModal }) => {
 	const [filterList, setFilterList] = useState([]);
-	console.log(data);
 
 	const handleQuery = (r, q) => {
 		let timeout = null;
@@ -65,12 +64,14 @@ const ListTickets = ({ data }) => {
 				) : (
 					<>
 						{data.map((ticket, index) => (
-							<ItemTicket
-								key={`${ticket.id}`}
-								itemData={ticket}
-								iterador={ticket.id}
-								hidden={filterList.length && !filterList.includes(index)}
-							/>
+							<Fragment key={`${ticket.id}`}>
+								<ItemTicket
+									itemData={ticket}
+									iterador={ticket.id}
+									hidden={filterList.length && !filterList.includes(index)}
+									getItem={(e) => onShowModal(e)}
+								/>
+							</Fragment>
 						))}
 					</>
 				)}
