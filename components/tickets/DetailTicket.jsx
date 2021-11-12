@@ -14,6 +14,10 @@ const DetailTicket = ({ ticketData }) => {
 		return newString === "pdf" ? true : false;
 	};
 
+	const myLoader = ({ src, width, quality }) => {
+		return `${src}?w=${width}&q=${quality || 75}`;
+	};
+
 	if (!id) return null;
 	return (
 		<div className="d-flex flex-wrap justify-content-between flex-col mh-100">
@@ -56,6 +60,7 @@ const DetailTicket = ({ ticketData }) => {
 					) : (
 						<ConteinerImage width="80%" height="150px">
 							<Image
+								loader={myLoader}
 								src={f.url}
 								alt={f.name}
 								layout="fill"
